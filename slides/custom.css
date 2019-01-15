@@ -1,5 +1,5 @@
-.reveal h1 {
-  font-size: 2em;
+.slide > ol {
+  font-size: .7em;
 }
 
 .reveal section img {

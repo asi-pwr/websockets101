@@ -38,9 +38,70 @@
   <p class="author">Michał Zając</p>
 </section>
 
-<section class="slide level6">
-
-</section>
+<section><section id="what-are-websockets" class="title-slide slide level1"><h1>What are WebSockets?</h1></section><section id="two-way-communication-channel" class="slide level2">
+<h2>Two-way communication channel</h2>
+<p>Using one TCP socket.</p>
+</section><section id="does-it-require-http" class="slide level2">
+<h2>Does it require HTTP?</h2>
+<p>Technically, no. Practically, yes.</p>
+</section><section id="section" class="slide level2">
+<h2>????</h2>
+<p>WebSockets were designed to work over HTTP ports 80 and 443 and to support proxies and other intermediaries.</p>
+</section><section id="can-i-use-it" class="slide level2">
+<h2>Can I use it?</h2>
+<p>According to https://caniuse.com/#feat=websockets all modern browsers support WebSockets.</p>
+</section></section>
+<section><section id="how-do-websockects-work" class="title-slide slide level1"><h1>How do WebSockects work?</h1></section><section id="http-compatibility" class="slide level2">
+<h2>HTTP compatibility</h2>
+<p>WebSockets use HTTP Upgrade header to change the protocol.</p>
+</section><section id="example-request" class="slide level2">
+<h2>Example request</h2>
+<pre><code>GET /chat HTTP/1.1
+Host: server.example.com
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Key: x3JJHMbDL1EzLkh9GBhXDw==
+Sec-WebSocket-Protocol: chat, superchat
+Sec-WebSocket-Version: 13
+Origin: http://example.com</code></pre>
+</section><section id="example-response" class="slide level2">
+<h2>Example response</h2>
+<pre><code>HTTP/1.1 101 Switching Protocols
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Accept: HSmrc0sMlYUkAGmm5OPpG2HaGWk=
+Sec-WebSocket-Protocol: chat</code></pre>
+</section><section id="opening-handshake---request" class="slide level2">
+<h2>Opening handshake - request</h2>
+<ol type="1">
+<li>Method used MUST be <code>GET</code>.</li>
+<li>Request URI must have the same relative or absolute path as the WebSocket URI.</li>
+<li>Request MUST contain <code>Host</code> header which matches the WebSocket URI.</li>
+<li>Request MUST contain <code>Connection</code> header whose value MUST include <code>Upgrade</code> token.</li>
+<li>Request MUST contain <code>Sec-WebSocket-Key</code> header whose value MUST be a base64-encoded 16-byte value.</li>
+<li>Request MUST contain <code>Sec-WebSocket-Version</code> header whose value MUST be <code>13</code>.</li>
+</ol>
+</section><section id="opening-handshake---response" class="slide level2">
+<h2>Opening handshake - response</h2>
+<ol type="1">
+<li>Response request code must be <code>101 Switching Protocols</code>.</li>
+<li>Response MUST contain <code>Upgrade</code> header with value being case-insensitive match of <code>websocket</code>.</li>
+<li>Response MUST contain <code>Connection</code> header with value matching <code>Upgrade</code> case-insensitively.</li>
+<li>Response MUST contain <code>Sec-WebSocket-Accept</code> header with value being base64-encoded SHA-1 of <code>Sec-WebSocket-Key</code> with the string <code>258EAFA5-E914-47DA-95CA-C5AB0DC85B11</code></li>
+</ol>
+</section><section id="further-communication" class="slide level2">
+<h2>Further communication</h2>
+<p>Once the connection is established both client and server can send WebSocket data or text frames back and forth in full-duplex mode.</p>
+<p>The data is minimally framed, with a small header followed by payload.</p>
+</section></section>
+<section><section id="further-reading" class="title-slide slide level1"><h1>Further reading</h1></section><section id="section-1" class="slide level2">
+<h2></h2>
+<ol>
+<li>https://en.wikipedia.org/wiki/WebSocket</li>
+<li>https://tools.ietf.org/html/rfc6455</li>
+<li>https://www.websocket.org/</li>
+</ol>
+</section></section>
     </div>
   </div>
 
